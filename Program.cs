@@ -5,6 +5,8 @@ using System.Linq;
 
 
 
+
+
 class Program
 {
     static void Main(string[] args)
@@ -32,11 +34,11 @@ class Program
 
         // Salvarea datelor in fisier text
         Console.WriteLine("Salvare date in fisier text...");
-        depozit.SalveazaDate("mobila.txt");
+        Utilitare.SalveazaDate("mobila.txt", depozit.MobilaDisponibila);
 
         // Preluarea datelor dintr-un fisier text
         Console.WriteLine("Incarcare date din fisier text...");
-        DepozitMobila depozitMobilier = DepozitMobila.IncarcareDinFisierText("depot_mobilier.txt");
+        DepozitMobila depozitMobilier = Utilitare.IncarcareDinFisierText("depot_mobilier.txt");
 
         // Cautarea dupa anumite criterii
         Console.Write("Cauta dupa criteriu (tip/pret): ");
@@ -61,7 +63,38 @@ class Program
         }
 
 
+        // Afisare clienti
+        Clienti client1 = new Clienti("Popescu", "Ion", "Str. Principală 10", "0740123456", "1234567890123", new DateTime(2022, 01, 01), 3);
+        Clienti client2 = new Clienti("Ionescu", "Maria", "Str. Libertatii 20", "0722123456", "2345678901234", new DateTime(2022, 02, 15), 5);
+        Clienti client3 = new Clienti("Georgescu", "Andrei", "Str. Republicii 30", "0733123456", "3456789012345", new DateTime(2022, 03, 31), 2);
+        List<Clienti> listaClienti = new List<Clienti>();
+        listaClienti.Add(client1);
+        listaClienti.Add(client2);
+        listaClienti.Add(client3);
+        Console.WriteLine("\nLista clienti:");
+        foreach (Clienti client in listaClienti)
+        {
+            Console.WriteLine("- Nume: " + client.Nume + ", Prenume: " + client.Prenume + ", Adresa: " + client.Adresa + ", Numar telefon: " + client.NumarTelefon + ", CNP:" + client.CNP + ", Data inregistrare: " + client.DataInregistrare + ", Numar comenzi:" + client.NumarComenzi);
+        }
 
+        Console.WriteLine("Afisare clienti:");
+
+        List<Clienti> listaClienti2 = Clienti.CitesteClientiDinFisier("clienti.txt");
+        foreach (Clienti client in listaClienti2)
+        {
+            client.AfiseazaDetaliiClient();
+        }
+
+
+        Console.WriteLine("Cautare clienti dupa nume:");
+        Console.Write("Introduceti nume pentru cautare: ");
+        string nume = Console.ReadLine();
+
+        List<Clienti> clientiGasiti = Clienti.CautaClienti("nume", nume);
+        foreach (Clienti client in clientiGasiti)
+        {
+            Console.WriteLine(client.GetNumeComplet());
+        }
 
 
 

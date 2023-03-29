@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 
-class Mobila
+public class Mobila
 {
     public string TipMobila { get; set; }
     public string Nume { get; set; }
